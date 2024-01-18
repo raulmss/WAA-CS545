@@ -19,10 +19,13 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getPostById(@PathVariable long id) {
-        PostDTO post = postService.getPostById(id);
-        return ResponseEntity.ok(post);
+        try {
+            PostDTO post = postService.getPostById(id);
+            return ResponseEntity.ok(post);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
-
     @GetMapping
     public ResponseEntity<List<PostDTO>> getAllPosts(@RequestParam(value = "author", required = false) String author,
             @RequestParam(value = "subStringAuthor", required = false) String subStringAuthor) {
@@ -42,18 +45,24 @@ public class PostController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PostDTO> updatePost(@PathVariable long id, @RequestBody PostDTO postDTO) {
-        PostDTO post = postService.updatePost(id, postDTO);
-        return ResponseEntity.ok(post);
+        try {
+            PostDTO post = postService.updatePost(id, postDTO);
+            return ResponseEntity.ok(post);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePostById(@PathVariable long id) {
-        boolean deleted = postService.deletePostById(id);
-        if (deleted) {
+
+        try {
+            boolean deleted = postService.deletePostById(id);
             return ResponseEntity.ok("Post with ID: " + id + " has been deleted");
-        } else {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+
     }
 
 }

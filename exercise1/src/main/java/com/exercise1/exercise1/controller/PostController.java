@@ -1,6 +1,7 @@
 package com.exercise1.exercise1.controller;
 
 import com.exercise1.exercise1.entity.dto.PostDTO;
+import com.exercise1.exercise1.entity.dto.UsersDTO;
 import com.exercise1.exercise1.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ public class PostController {
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<PostDTO>> getAllPostsByTitle(@RequestParam(value = "title", required = false) String title){
+        List<PostDTO> posts = postService.getPostByTitle(title);
+        return ResponseEntity.ok(posts);
     }
     @GetMapping
     public ResponseEntity<List<PostDTO>> getAllPosts(@RequestParam(value = "author", required = false) String author,

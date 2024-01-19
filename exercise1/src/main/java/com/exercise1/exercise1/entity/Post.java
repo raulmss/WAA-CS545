@@ -1,12 +1,11 @@
 package com.exercise1.exercise1.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Collection;
 
 
 @Entity
@@ -20,10 +19,18 @@ public class Post {
     String title;
     String content;
     String author;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    @OrderBy("id ASC")
+    Collection<Comment> comments;
 
     public Post(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 }

@@ -36,6 +36,15 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public List<UsersDTO> getAllUsersWithMoreThanNPost(int n) {
+        return usersRepo.getAllUsersWithMoreThanNPost(n)
+                .stream()
+                .map(user -> new UsersDTO(user.getId(), user.getName(), user.getPosts()))
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
     public UsersDTO getUserById(long id) {
             Users user = usersRepo.findById(id)
                     .orElseThrow(() -> new RuntimeException("No User found with id: "+id+"."));
@@ -57,6 +66,19 @@ public class UsersServiceImpl implements UsersService {
         return user.getPosts()
                 .stream()
                 .map(post -> new PostDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUser(long id) {
+        usersRepo.deleteById(id);
+    }
+
+    @Override
+    public List<UsersDTO> getAllUserByPostTitle(String title) {
+        return usersRepo.findAllByPostsTitle(title)
+                .stream()
+                .map(user -> new UsersDTO(user.getId(), user.getName(), user.getPosts()))
                 .collect(Collectors.toList());
     }
 

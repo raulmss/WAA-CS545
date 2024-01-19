@@ -10,5 +10,7 @@ import java.util.List;
 
 @Repository
 public interface PostRepo extends JpaRepository<Post, Long> {
+    //List<Post> findAllByTitleEqualsOrderByidAsc(String title);
 
+    List<Post> findAllByTitleEquals(String title);
 }

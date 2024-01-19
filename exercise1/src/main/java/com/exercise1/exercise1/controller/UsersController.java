@@ -25,6 +25,12 @@ public class UsersController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<List<UsersDTO>> getAllUsersWithMoreThanNPost(@RequestParam(value = "posts", required = false) int posts){
+        List<UsersDTO> users = usersService.getAllUsersWithMoreThanNPost(posts);
+        return ResponseEntity.ok(users);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UsersDTO> getUserById(@PathVariable long id){
         try{
@@ -45,6 +51,22 @@ public class UsersController {
     public ResponseEntity<List<PostDTO>> getPostsByUserId(@PathVariable long id){
         List<PostDTO> posts = usersService.getPostsByUserId(id);
         return ResponseEntity.ok(posts);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long id){
+        try{
+            usersService.deleteUser(id);
+            return ResponseEntity.ok().build();
+        }catch (RuntimeException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<UsersDTO>> getAllUserByPostTitle(@RequestParam(value = "title", required = false) String title){
+        List<UsersDTO> users = usersService.getAllUserByPostTitle(title);
+        return ResponseEntity.ok(users);
     }
 
 }

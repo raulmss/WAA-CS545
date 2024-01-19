@@ -27,6 +27,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostDTO> getPostByTitle(String title) {
+
+        return postRepo.findAllByTitleEquals(title)
+                .stream()
+                .map(post -> new PostDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<PostDTO> getAll() {
         return postRepo.findAll().stream()
                 .map(post -> new PostDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor()))

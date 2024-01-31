@@ -5,23 +5,19 @@ import axios from "axios";
 
 const PostDetails = (props) => {
 
-    const {value} = props;
+    const {value, deleteFunc} = props;
 
-
-    const deleteFunc = (id) =>{
-        axios.delete(`http://localhost:8080/api/v1/posts/${id}`)
-        .then(response =>{
-            console.log(response.data);
-            props.fetchPosts();
-        })
-        .catch(error =>{
-            console.log(error);
-        })
-    };
 
     const deleteAction =()=>{
         deleteFunc(value.id);
-        
+
+        clear();
+    }
+    
+    const clear = () =>{
+        value.id ='';
+        value.title ='';
+        value.author ='';
     }
 
     return (

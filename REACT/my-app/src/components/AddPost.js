@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./css/addPost.css"
 import axios from "axios";
 
-const AddPost = () => {
+const AddPost = (props) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [content, setContent] = useState('');
@@ -19,26 +19,18 @@ const AddPost = () => {
         setContent(e.target.value);
     };
 
-    //this is the action of creating a new Post
-    const addNewPost = (title, author, content) =>{ 
-        console.log("in add post")
 
-        axios.post('http://localhost:8080/api/v1/posts',{
-            title:title,
-            author:author,
-            content:content
-        })
-        .then(response =>{
-            console.log(response.data)
-        })
-        .catch(error => {
-            console.log(error.data)
-        });
-    }
 
     //this is the calling of the function through the button
     const applyNewPost = () =>{
-        addNewPost(title, author, content);
+        props.addNewPost(title, author, content);
+        clear();
+    }
+
+    const clear = () => {
+        setTitle('');
+        setAuthor('');
+        setContent('');
     }
 
     return (

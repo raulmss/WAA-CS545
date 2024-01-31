@@ -1,0 +1,31 @@
+.post-details {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    margin: 20px auto; /* Add this line to center the container */
+    border-radius: 5px;
+    border: 2px solid red; /* Add this line to change the border color */
+    font-family: "Chalkboard", sans-serif;
+    width: 300px; /* Add this line to set the width */
+    height: 200px; /* Add this line to set the height */
+    display: flex; /* Add this line to enable flexbox */
+    flex-direction: column; /* Add this line to stack the elements vertically */
+    justify-content: center; /* Add this line to center the elements vertically */
+    align-items: center; /* Add this line to center the elements horizontally */
+}
+    
+.post-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.post-details p {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+ a{
+    font-weight: bold;
+    margin: 10px;
+    color: yellow;
+}

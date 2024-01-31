@@ -1,0 +1,8 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+.update-area {
+    margin-top: 20px;
+}

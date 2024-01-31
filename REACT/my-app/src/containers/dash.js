@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Posts from './Posts';
 import './css/dash.css';
 import PostDetails from './PostDetails';
+import AddPost from '../components/AddPost';
 
 const Dashboard = () => {
     const [text, setText] = React.useState('');
@@ -29,7 +30,11 @@ const Dashboard = () => {
                 <button onClick={applyChange} >Update Title</button>
             </div>
 
-            <PostDetails value = {postValue}/>
+            <PostDetails 
+            value = {postValue}
+            />
+
+            <AddPost/>
         </div>
     );
 };

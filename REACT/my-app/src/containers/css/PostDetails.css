@@ -5,7 +5,7 @@
     margin: 20px auto; /* Add this line to center the container */
     border-radius: 5px;
     border: 2px solid red; /* Add this line to change the border color */
-    font-family: "Chalkboard", sans-serif;
+    font-family: "Digital", Arial, sans-serif;
     width: 300px; /* Add this line to set the width */
     height: 200px; /* Add this line to set the height */
     display: flex; /* Add this line to enable flexbox */
@@ -24,8 +24,11 @@
     margin-bottom: 5px;
 }
 
- a{
+.links{
     font-weight: bold;
     margin: 10px;
     color: yellow;
+}
+.links>a{
+    margin: 10px;
 }

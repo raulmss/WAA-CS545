@@ -1,49 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../components/Post';
+import axios from 'axios';
 
 const Posts = (props) => {
     const [postsH, setPostsH] = useState( 
         [
-            { id: 1, title: 'Post 1', author: 'Author 1' },
-            { id: 2, title: 'Post 2', author: 'Author 2' },
-            { id: 3, title: 'Post 3', author: 'Author 3' }
+            { id: 1, title: 'Post 1', author: 'Author 1' }
         ]
     );
 
     const {value, getInfos} = props;
     
 
-    if(value){
-        const updatedPostSH = [...postsH];
-        updatedPostSH[0].title = value;
+    useEffect(() => {
+        if(value){
+            const updatedPostSH = [...postsH];
+            updatedPostSH[0].title = value;
+            setPostsH(updatedPostSH);
+        }
+    }, [value]);
+
+    const fetchPosts = ()=> {
+        axios.get("http://localhost:8080/api/v1/posts")
+        .then( response => {
+            console.log("In fetch posts.")
+            setPostsH(response.data)
+        })
+        .catch(error =>{
+            console.log(error.message)
+        })
     }
 
-   
-
-    
-
-    // const fetchPosts = ()=> {
-    //     axios.get("endpoint")
-    //     .then( response => {
-    //         setPostsH(response.data)
-    //     })
-    //     .catch(error =>{
-    //         console.log(error.message)
-    //     })
-    // }
-
-    // useEffect(() =>{
-    //     fetchPosts();
-    // }, [flag])
-    // if [] is empty, this is to happen ONLY when mounting component
+    useEffect(() =>{
+        fetchPosts();
+    }, [])
 
     const postItems = postsH.map(post => {
         return (
-            <Post onClick={() => getInfos(post)}
+            <Post 
             key={post.id}
             id={post.id}
             title={post.title}
             author={post.author}
+            onClick={() => getInfos(post)}
+            fetchPosts = {fetchPosts}
             />
         ) 
     });

@@ -2,6 +2,7 @@ import React from 'react';
 import "./css/post.css";
 
 const Post = (props) => {
+
     return (
         <div className="Content" onClick = {props.onClick}>
             <p>ID: {props.id}</p>

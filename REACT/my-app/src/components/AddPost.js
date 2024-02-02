@@ -1,37 +1,48 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./css/addPost.css"
 import axios from "axios";
 
 const AddPost = (props) => {
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [content, setContent] = useState('');
+    // const [title, setTitle] = useState('');
+    // const [author, setAuthor] = useState('');
+    // const [content, setContent] = useState('');
+    // const handleTitleChange = (e) => {
+    //     setTitle(e.target.value);
+    // };
 
-    const handleTitleChange = (e) => {
-        setTitle(e.target.value);
-    };
+    // const handleAuthorChange = (e) => {
+    //     setAuthor(e.target.value);
+    // };
 
-    const handleAuthorChange = (e) => {
-        setAuthor(e.target.value);
-    };
+    // const handleContentChange = (e) => {
+    //     setContent(e.target.value);
+    // };
+    
+    const clear = () => {
+        titleRef.current.value = "";
+        authorRef.current.value ="";
+        contentRef.current.value = "";
+    }
 
-    const handleContentChange = (e) => {
-        setContent(e.target.value);
-    };
+    const titleRef = useRef("");
+    const authorRef = useRef("");
+    const contentRef = useRef("");
 
+
+    useEffect( ()=>{
+        //This makes the field focus on the title input field
+        titleRef.current?.focus();
+    },[])
 
 
     //this is the calling of the function through the button
     const applyNewPost = () =>{
-        props.addNewPost(title, author, content);
+        props.addNewPost(titleRef.current.value, authorRef.current.value, contentRef.current.value);
+        console.log("title is: ", titleRef.current.value)
         clear();
+
     }
 
-    const clear = () => {
-        setTitle('');
-        setAuthor('');
-        setContent('');
-    }
 
     return (
         <>
@@ -40,15 +51,15 @@ const AddPost = (props) => {
                 <div className="inputs">
                     <div className="field">
                         <label htmlFor="title">Title</label>
-                        <input id="title" type="text" value={title} onChange={handleTitleChange}></input>
+                        <input id="title" type="text" ref={titleRef} placeholder="Title"></input>
                     </div>
                     <div className="field">
                         <label htmlFor="author">Author</label>
-                        <input id="author" type="text" value={author} onChange={handleAuthorChange}></input>
+                        <input id="author" type="text" ref={authorRef} placeholder="Author"></input>
                     </div>
                     <div className="field">
                         <label htmlFor="content">Content</label>
-                        <input type="text" value={content} onChange={handleContentChange}></input>
+                        <input type="text" ref={contentRef} placeholder="Content"></input>
                     </div>
                 </div>
                 <div className="addButton">

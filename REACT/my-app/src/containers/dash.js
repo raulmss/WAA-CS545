@@ -4,8 +4,9 @@ import './css/dash.css';
 import PostDetails from './PostDetails';
 import AddPost from '../components/AddPost';
 import axios from 'axios';
+import { OnClickPostContext } from '../components/context/OnClickPostContext';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const [text, setText] = React.useState('');
     const [valuePassed, setvaluePassed] = useState('') 
     const [postValue, setPostValue] = useState('');
@@ -15,8 +16,11 @@ const Dashboard = () => {
         setText(event.target.value);
     };
 
+    const {setClickPostId} = props;
+
     const getInfo = (value) => {
         setPostValue(value);
+        setClickPostId(value.id);
     }
 
     const applyChange = (newtitle) =>{
@@ -78,10 +82,11 @@ const Dashboard = () => {
                 <button onClick={applyChange} >Update Title</button>
             </div>
 
-            <PostDetails 
-            value = {postValue}
-            deleteFunc = {deleteFunc}
-            />
+            <OnClickPostContext.Provider value={postValue}>
+                <PostDetails 
+                deleteFunc = {deleteFunc}
+                />  
+            </OnClickPostContext.Provider>
 
             <AddPost addNewPost ={addNewPost}/>
         </div>

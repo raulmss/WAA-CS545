@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Post from '../components/Post';
 
 const Posts = (props) => {
 
-    const {value, getInfos} = props;
+    const {getInfos} = props;
     
     const postItems = props.posts.map(post => {
         return (

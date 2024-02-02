@@ -1,12 +1,13 @@
-import { useState } from "react"
+import { useContext} from "react"
 import "./css/PostDetails.css"
-import axios from "axios";
+import { OnClickPostContext } from "../components/context/OnClickPostContext";
 
 
 const PostDetails = (props) => {
 
-    const {value, deleteFunc} = props;
+    const {deleteFunc} = props;
 
+    const value = useContext(OnClickPostContext);
 
     const deleteAction =()=>{
         deleteFunc(value.id);

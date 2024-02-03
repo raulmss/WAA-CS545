@@ -77,18 +77,18 @@ const Dashboard = (props) => {
         <div className="dashboard">
             <Posts posts ={posts} getInfos = {getInfo} value={valuePassed}/>
 
-            <div className='update-area'>   
+            {/* <div className='update-area'>   
                 <input type="text" value={text} onChange={handleChange} />
                 <button onClick={applyChange} >Update Title</button>
-            </div>
+            </div> */}
 
-            <OnClickPostContext.Provider value={postValue}>
+            {/* <OnClickPostContext.Provider value={postValue}>
                 <PostDetails 
                 deleteFunc = {deleteFunc}
                 />  
-            </OnClickPostContext.Provider>
+            </OnClickPostContext.Provider> */}
 
-            <AddPost addNewPost ={addNewPost}/>
+            {/* <AddPost addNewPost ={addNewPost}/> */}
         </div>
     );
 };

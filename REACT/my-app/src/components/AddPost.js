@@ -1,27 +1,30 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/addPost.css"
 import axios from "axios";
 
 const AddPost = (props) => {
-    // const [title, setTitle] = useState('');
-    // const [author, setAuthor] = useState('');
-    // const [content, setContent] = useState('');
-    // const handleTitleChange = (e) => {
-    //     setTitle(e.target.value);
-    // };
-
-    // const handleAuthorChange = (e) => {
-    //     setAuthor(e.target.value);
-    // };
-
-    // const handleContentChange = (e) => {
-    //     setContent(e.target.value);
-    // };
-    
+        
     const clear = () => {
         titleRef.current.value = "";
         authorRef.current.value ="";
         contentRef.current.value = "";
+    }
+
+    const addNewPost = (title, author, content) =>{ 
+        console.log("in add post")
+
+        axios.post('http://localhost:8080/api/v1/posts',{
+            title:title,
+            author:author,
+            content:content
+        })
+        .then(response =>{
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error.data)
+        });
     }
 
     const titleRef = useRef("");
@@ -30,19 +33,18 @@ const AddPost = (props) => {
 
 
     useEffect( ()=>{
-        //This makes the field focus on the title input field
         titleRef.current?.focus();
     },[])
 
+    const navigate = useNavigate();
 
-    //this is the calling of the function through the button
     const applyNewPost = () =>{
-        props.addNewPost(titleRef.current.value, authorRef.current.value, contentRef.current.value);
+        addNewPost(titleRef.current.value, authorRef.current.value, contentRef.current.value);
         console.log("title is: ", titleRef.current.value)
+        navigate("/posts");
         clear();
 
     }
-
 
     return (
         <>

@@ -7,7 +7,8 @@ const PostDetails = (props) => {
 
     const {deleteFunc} = props;
 
-    const value = useContext(OnClickPostContext);
+    
+    const {value} = props;
 
     const deleteAction =()=>{
         deleteFunc(value.id);
@@ -16,17 +17,17 @@ const PostDetails = (props) => {
     }
     
     const clear = () =>{
-        value.id ='';
-        value.title ='';
-        value.author ='';
+        value.id =' ';
+        value.title =' ';
+        value.author =' ';
     }
 
     return (
         <div className="post-details">
             <h1>MIU</h1>
-            <p>{value.id}</p>
-            <p>{value.title}</p>
-            <p>{value.author}</p>
+            <p>ID: {value.id}</p>
+            <p>Title: {value.title}</p>
+            <p>Author: {value.author}</p>
 
             <div className="links">
                 <a>Edit</a>
